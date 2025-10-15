@@ -486,22 +486,47 @@
                         <h3>İletişim</h3>
                         <p style="color:var(--muted)">Kısa bir mesaj bırakın, projeniz için en uygun çözümü birlikte
                             planlayalım. 24 saat içinde dönüş yapıyoruz.</p>
-                        <form id="contactForm" onsubmit="submitForm(event)">
-                            <input class="input" type="text" id="name" placeholder="Adın Soyadın" required>
-                            <input class="input" type="email" id="email" placeholder="E-posta" required
-                                style="margin-top:8px">
-                            <textarea id="message" placeholder="Proje hakkında kısa bilgi..." required
-                                style="margin-top:8px"></textarea>
-                            <div style="margin-top:10px">
-                                <button type="submit" class="btn-primary">Gönder</button>
-                            </div>
-                        </form>
+<form id="contactForm" action="https://formspree.io/f/xldpapev" method="POST">
+    <input class="input" type="text" id="name" name="name" placeholder="Adın Soyadın" required>
+    <input class="input" type="email" id="email" name="_replyto" placeholder="E-posta" required style="margin-top:8px">
+    <textarea id="message" name="message" placeholder="Proje hakkında kısa bilgi..." required style="margin-top:8px"></textarea>
+    <div style="margin-top:10px">
+        <button type="submit" class="btn-primary">Gönder</button>
+    </div>
+</form>
+
+<script>
+document.getElementById('contactForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const formData = new FormData(form);
+
+    try {
+        const response = await fetch(form.action, {
+            method: form.method,
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+            alert('Teşekkürler! Mesajın başarıyla gönderildi 🎉');
+            form.reset();
+        } else {
+            alert('Bir hata oluştu. Lütfen tekrar dene.');
+        }
+    } catch (error) {
+        alert('Bağlantı hatası. Lütfen internetini kontrol et.');
+    }
+});
+</script>
+
                     </div>
 
                     <div>
                         <h3>Bize Ulaş</h3>
                         <p style="color:var(--muted)">E-posta: <a
-                                href="mailto:hello@nevawebdesign.com">hello@nevawebdesign.com</a></p>
+                                href="mailto:hello@nevawebdesign.com">nevawebdesign18@gmail.com</a></p>
                         <p style="color:var(--muted)">Instagram: <a href="https://instagram.com/nevawebdesign"
                                 target="_blank">@nevawebdesign</a></p>
 
@@ -523,45 +548,6 @@
     </div>
 
        <div class="grid">
-<form 
-  action="https://formspree.io/f/xldpapev" 
-  method="POST"
-  style="padding:16px;background:#1c1c1c;border-radius:12px;"
-  onsubmit="document.getElementById('sentNotice').style.display='block'">
-
-  <label>Ad Soyad</label>
-  <input 
-    name="name" 
-    required 
-    style="width:100%;padding:12px;border-radius:12px;border:1px solid #333;background:#141414;color:#fff;margin:8px 0 12px">
-
-  <label>E-posta</label>
-  <input 
-    name="email" 
-    type="email" 
-    required 
-    style="width:100%;padding:12px;border-radius:12px;border:1px solid #333;background:#141414;color:#fff;margin:8px 0 12px">
-
-  <label>Mesajınız</label>
-  <textarea 
-    name="msg" 
-    rows="6" 
-    required 
-    style="width:100%;padding:12px;border-radius:12px;border:1px solid #333;background:#141414;color:#fff;margin:8px 0 12px"></textarea>
-
-  <button 
-    class="btn red" 
-    type="submit" 
-    style="background:#d63447;color:#fff;padding:12px 20px;border:0;border-radius:10px;cursor:pointer;font-weight:600;font-size:16px;width:100%;transition:background .3s;">
-    Gönder
-  </button>
-
-  <p id="sentNotice" 
-     style="display:none;font-size:14px;color:#4ade80;margin-top:10px;text-align:center;">
-     ✅ Mesajınız gönderildi. En kısa sürede dönüş yapacağız.
-  </p>
-</form>
-    </div>
     
 </body>
 
@@ -577,5 +563,6 @@
 </script>
 
 </html>
+
 
 
